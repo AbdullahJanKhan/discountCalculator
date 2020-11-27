@@ -1,11 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 
 export default function App(){
 
     return(
         <View style={styles.container}>
-            <Text style={styles.textStyle}>Hello World!!</Text>
+            <View style={styles.inputTextContainer}>
+                <View style={styles.inputTextStyles}>
+                    <TextInput keyboardType='decimal-pad' placeholder = 'Enter Actual Price' />
+                </View>
+                <View style={styles.inputTextStyles}>
+                    <TextInput keyboardType='decimal-pad' placeholder = 'Enter Discount' />
+                </View>
+            </View>
         </View>
     );
 
@@ -20,7 +27,18 @@ const styles = StyleSheet.create({
     textStyle:{
       fontSize: 21
     },
-    Button:{
-      padding:10
+    inputTextContainer:{
+      flexDirection: 'row',
+    },
+    inputTextStyles:{
+        width:'48%',
+        borderWidth: 2,
+        borderColor: 'grey',
+        padding: 5,
+        margin: 5,
+    },
+    buttonStyle:{
+        width: '50%',
+        padding: '5%'
     }
   });
