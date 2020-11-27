@@ -11,14 +11,25 @@ export default function App(){
     const calculate = ()=>{
         const actual = Number(getPrice)
         const discount = Number(getDiscount)
-        const discountValue = actual - (actual*(discount/100));
-        const save = actual - discountValue
+        const discountValue = (actual - (actual*(discount/100))).toFixed(2);
+        const save = (actual - discountValue).toFixed(2)
         setDiscountValue(String(discountValue))
         setSaveAmount(String(save))
     }
 
+    const checkDiscount = (data)=>{
+        const check = Number(data)
+        if (check<0 || check>100){
+            alert('Invalid Discount Check Again Applied')
+            setDiscount('')
+        } else {
+            setDiscount(data)
+        }
+    }
+
     return(
         <View style={styles.container}>
+            <Text style={styles.header}>Discount Calculator</Text>
             <View style={styles.inputTextContainer}>
                 <View style={styles.inputTextStyles}>
                     <Text>Orignal Price: </Text>
@@ -26,8 +37,11 @@ export default function App(){
                 </View>
                 <View style={styles.inputTextStyles}>
                     <Text>Discount Avaliable: </Text>
-                    <TextInput keyboardType='decimal-pad' value={getDiscount} onChangeText={(data)=>setDiscount(data)} placeholder = 'Enter Discount' />
+                    <TextInput keyboardType='decimal-pad' value={getDiscount} onChangeText={(data)=>checkDiscount(data)} placeholder = 'Enter Discount' />
                 </View>
+            </View>
+            <View style={styles.buttonStyle}>
+                <Button title='Calculate' color='grey' onPress={()=>calculate()}/>
             </View>
             <View style={styles.inputTextContainer}>
                 <View style={styles.inputTextStyles}>
@@ -39,9 +53,6 @@ export default function App(){
                     <TextInput style={styles.textStyle} editable={false} value={getSaveAmount} placeholder = 'You Save' />
                 </View>
             </View>
-            <View style={styles.buttonStyle}>
-                <Button title='Calculate' color='grey' onPress={()=>calculate()}/>
-            </View>
         </View>
     );
 
@@ -52,6 +63,10 @@ const styles = StyleSheet.create({
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    header:{
+        fontSize: 36,
+        margin: '5%',
     },
     textStyle:{
       color:'black'
