@@ -1,5 +1,5 @@
 import React, { useDebugValue, useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 export default function App(){
     const [getPrice, setPrice] = useState('');
@@ -7,6 +7,8 @@ export default function App(){
 
     const [getDiscountValue, setDiscountValue] = useState('');
     const [getSaveAmount, setSaveAmount] = useState('');
+
+    const [getHistory,setHistory] = useState([]);
 
     const calculate = ()=>{
         const actual = Number(getPrice)
@@ -25,6 +27,11 @@ export default function App(){
         } else {
             setDiscount(data)
         }
+    }
+
+    const save = ()=>{
+        const calculations = [getPrice,getDiscount,getDiscountValue,getSaveAmount]
+        setHistory([...getHistory,calculations])
     }
 
     return(
@@ -52,6 +59,9 @@ export default function App(){
                     <Text>You Save: </Text>
                     <TextInput style={styles.textStyle} editable={false} value={getSaveAmount} placeholder = 'You Save' />
                 </View>
+            </View>
+            <View style={styles.buttonStyle}>
+                <Button title='Save Value' color='grey' onPress={()=>save()}/>
             </View>
         </View>
     );
